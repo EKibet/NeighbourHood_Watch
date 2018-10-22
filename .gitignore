@@ -2,6 +2,7 @@ virtual/
 *.pyc/
 ./start.sh
 __pycache__/
+.vscode/
 *.py[cod]
 *$py.class
 
