@@ -90,19 +90,35 @@ def singlebsnview(request,post_id):
 #         return context
 @login_required(login_url='/login/')
 def post_listview(request):
-    location = get_object_or_404(Neighbourhood, pk=request.user.profile.community.id)
-    all_profiles = Profile.objects.filter(community=location)
-    form = CommentForm()
+    all_communities = Neighbourhood.objects.all()
+
     try:
+        location = get_object_or_404(Neighbourhood, pk=request.user.profile.community.id)
+        all_profiles = Profile.objects.filter(community=location)
+        form = CommentForm()
         posts = Post.objects.filter(location=location)
         bsn_posts = Business.objects.filter(bsn_community=location)
+        print(all_communities)
         print('fffffffffffffffffffffffff')
 
     except:
-        posts = Post.objects.get(location=location)
-        bsn_posts = Business.objects.get(bsn_community=location)
+        messages.success(request, f'Kindly join a location or update it via your profile!')
 
     return render(request,'neiba/post_list.html', locals())
+
+def join(request,new_community):
+    # get_usr = get_object_or_404(User,pk=request.user.id)
+    try:
+        new_communit = get_object_or_404(Neighbourhood, pk=new_community)
+
+        request.user.profile.community = new_communit
+        request.user.profile.save()
+        print('pppppppppppp')
+        return redirect('home')
+            
+    except:
+        return redirect('home')
+
 @login_required(login_url='/login/')
 def business_listview(request):
     location = get_object_or_404(Neighbourhood, pk=request.user.profile.community.id)
@@ -184,8 +200,7 @@ def add_comment(request,post_id):
 
 def left(request):
     location = get_object_or_404(Neighbourhood, pk=request.user.profile.community.id)
-    default = get_object_or_404(Neighbourhood, pk=2)
     if request.user.profile.community == location:
-        request.user.profile.community= default
+        request.user.profile.community= None
         request.user.profile.save()
     return redirect('home')     
