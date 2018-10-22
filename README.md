@@ -27,7 +27,7 @@ As a user, You will:
 
 ### Installing
 
-*** To view the app.Visit -> [VillagersHub](https://github.com/EKibet/NeighbourHood_Watch)
+*** To view the app.Visit -> [VillagersHub](https://neighbourhoodlyt.herokuapp.com/)
 
 1. Clone this repo: git clone https://github.com/EKibet/NeighbourHood_Watch.
 2. The repo comes in a zipped or compressed format. Extract to your prefered location and open it.
