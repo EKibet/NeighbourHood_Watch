@@ -14,6 +14,7 @@ urlpatterns=[
     url(r'^business/$', views.business_listview, name='business'),
     url('business/(?P<post_id>\d+)/', views.singlebsnview, name='business-detail'),
     url(r'^leavecomminity/$', views.left, name='left'),
+    url(r'^joincomminity/(?P<new_community>\d+)/$', views.join, name='join'),
 
 ]
 # urlpatterns = format_suffix_patterns(urlpatterns)
