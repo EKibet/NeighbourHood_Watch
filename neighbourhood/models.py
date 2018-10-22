@@ -24,10 +24,8 @@ class Neighbourhood(models.Model):
         search_result = cls.objects.filter(bsn_name__icontains=search_term)
         return search_result   
     @classmethod
-    def create_neigborhood(cls, **kwargs):
-        loca = Neighbourhood.objects.get(id=request.user.profile.community.id)  
-        new_business = Business(bsn_name=bizna,bsn_user=request.user,bsn_community=loca,bsn_email=email)
-        new_business.save()
+    def create_neigborhood(cls):
+        cls.save()
     @classmethod
     def delete_neigborhood(cls, id):
         delet = cls.objects.filter(id=id).delete()
@@ -43,7 +41,7 @@ class Profile(models.Model):
     profile_path = models.ImageField(upload_to = 'profile_pics/',default='profile_pics/default.jpg')
     bio = models.TextField()
     user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
-    community = models.ForeignKey(Neighbourhood,default=2,null=True, related_name='population')
+    community = models.ForeignKey(Neighbourhood,null=True, related_name='population')
 
     def __str__(self):
         return f'{self.user.username} Profile'
